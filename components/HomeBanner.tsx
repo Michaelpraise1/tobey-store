@@ -11,7 +11,7 @@ import joggersImg from '../images/products/fireJoogers.jpeg'
 import Title from './ui/text';
 
 const products = [
-  { id: 1, image: jacketImg, title: "Ai Shape Fit Jacket" },
+  { id: 1, image: jacketImg, title: "Mfk Daniel Laruooso" },
   { id: 2, image: joggersImg, title: "Flamin' Joggers" },
   { id: 3, image: hoodieImg, title: "Premium Hoodie" },
 ]
@@ -39,14 +39,14 @@ const HomeBanner = () => {
       {/* Left Content - Typography & Buttons */}
       <div className="w-full md:w-1/2 flex flex-col items-start gap-6 z-10">
         <Title className="text-5xl font-gaming drop-shadow-[0_0_15px_rgba(239,68,68,0.8)] md:text-6xl font-bold uppercase text-white leading-tight tracking-widest">
-          Flamin&apos; <br/>
-          <span className="text-shop_light_red drop-shadow-[0_0_20px_rgba(239,68,68,0.9)]">Hot</span> <br/>
+          Flamin&apos; <br />
+          <span className="text-shop_light_red drop-shadow-[0_0_20px_rgba(239,68,68,0.9)]">Hot</span> <br />
           Merchandise
         </Title>
         <p className="text-zinc-400 text-sm md:text-base font-medium max-w-md">
           Unleash your fighting spirit with exclusive <span className="text-shop_light_red font-bold">Mortal Fang Kombat</span> gear. Premium merchandise for true warriors.
         </p>
-        
+
         <div className="flex flex-wrap items-center gap-4 mt-4">
           <Button className="bg-shop_light_red hover:bg-shop-dark-red text-white px-8 py-6 rounded-lg font-bold uppercase tracking-wider text-sm flex items-center gap-2 transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(220,38,38,0.4)] hover:shadow-[0_0_30px_rgba(220,38,38,0.6)] border-none">
             <Flame className="w-5 h-5" /> Shop Now
@@ -59,8 +59,8 @@ const HomeBanner = () => {
 
       {/* Right Content - 5-Second Carousel (Hidden on Mobile for a cleaner professional look) */}
       <div className="hidden md:flex w-full md:w-1/2 z-10 justify-center md:justify-end">
-        <Carousel 
-          setApi={setApi} 
+        <Carousel
+          setApi={setApi}
           opts={{ loop: true }}
           className="w-full max-w-sm"
         >
@@ -68,19 +68,19 @@ const HomeBanner = () => {
             {products.map((product) => (
               <CarouselItem key={product.id}>
                 <div className="flex flex-col items-center justify-center p-6 bg-zinc-900/50 backdrop-blur-md border border-shop-dark-red/50 rounded-2xl aspect-square gap-6 shadow-[0_0_30px_rgba(127,29,29,0.2)] mx-2">
-                   <div className="w-48 h-48 bg-zinc-950 rounded-full flex items-center justify-center border-4 border-shop_light_red/30 shadow-inner overflow-hidden relative">
-                     <Image 
-                       src={product.image} 
-                       alt={product.title} 
-                       width={200} 
-                       height={200} 
-                       className="object-cover w-full h-full hover:scale-110 transition-transform duration-500" 
-                       priority // loads instantly for banner
-                     />
-                   </div>
-                   <h3 className="text-white font-black tracking-widest uppercase text-lg text-center">
-                     {product.title}
-                   </h3>
+                  <div className="w-48 h-48 bg-zinc-950 rounded-full flex items-center justify-center border-4 border-shop_light_red/30 shadow-inner overflow-hidden relative">
+                    <Image
+                      src={product.image}
+                      alt={product.title}
+                      width={200}
+                      height={200}
+                      className="object-cover w-full h-full hover:scale-110 transition-transform duration-500"
+                      priority // loads instantly for banner
+                    />
+                  </div>
+                  <h3 className="text-white font-black tracking-widest uppercase text-lg text-center">
+                    {product.title}
+                  </h3>
                 </div>
               </CarouselItem>
             ))}
