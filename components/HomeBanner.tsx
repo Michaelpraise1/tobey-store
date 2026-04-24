@@ -11,9 +11,9 @@ import joggersImg from '../images/products/fireJoogers.jpeg'
 import Title from './ui/text';
 
 const products = [
-  { id: 1, image: jacketImg, title: "Mfk Daniel Laruooso" },
-  { id: 2, image: joggersImg, title: "Flamin' Joggers" },
-  { id: 3, image: hoodieImg, title: "Premium Hoodie" },
+  { id: 1, image: jacketImg, title: "Mfk Daniel Laruooso Vasity Jacket" },
+  { id: 2, image: joggersImg, title: "Fire Hell Pants" },
+  { id: 3, image: hoodieImg, title: "MFK Mortal Miguel Premium Hoodie" },
 ]
 
 const HomeBanner = () => {

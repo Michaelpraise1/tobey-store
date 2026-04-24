@@ -11,6 +11,7 @@ const ProductCard = ({ product }: { product: Product }) => {
   return (
     <div className="flex flex-col h-full">
       <div className="aspect-square w-full bg-gray-100 rounded-md flex items-center justify-center mb-4 overflow-hidden relative group">
+        <Link href={product?.slug?.current ? `/product/${product.slug.current}` : "#"} className="absolute inset-0 z-10"></Link>
         {product?.images && product.images.length > 0 ? (
           <Image
             src={urlFor(product.images[0]).url()}
@@ -40,18 +41,22 @@ const ProductCard = ({ product }: { product: Product }) => {
           </p>
         )}
         {product?.status === "hot" && <Link href={"/deal"}
-          className="absolute top-2 left-2 bg-shop-dark-red text-white text-sm  px-2 py-1 rounded-md group-hover:border-shop_light_red group-hover:text-shop-light-bg border-darkColor/50 hoverEffect"
+          className="absolute top-2 left-2 bg-shop-dark-red text-white text-sm  px-2 py-1 rounded-md group-hover:border-shop_light_red group-hover:text-shop-light-bg border-darkColor/50 hoverEffect z-20"
         >
           <Flame
             size={18}
             fill="#fb6c08"
             className='text-shop-orange/50 group-hover:text-shop-orange hoverEffect ' />
         </Link>}
-        <AddToWishlistButton product={product} />
+        <div className="z-20 absolute top-0.5 right-2">
+          <AddToWishlistButton product={product} />
+        </div>
       </div>
 
       <div className="flex flex-col flex-1 p-2">
-        <h3 className="font-semibold text-lg line-clamp-1">{product.title || 'Unnamed Product'}</h3>
+        <Link href={product?.slug?.current ? `/product/${product.slug.current}` : "#"}>
+          <h3 className="font-semibold text-lg line-clamp-1 hover:text-blue-600 transition-colors">{product.title || 'Unnamed Product'}</h3>
+        </Link>
         {product?.categories && (
           <p className="text-sm text-gray-500">{product?.categories.map((cat: any) => cat.title || cat).join(", ")}</p>
         )}

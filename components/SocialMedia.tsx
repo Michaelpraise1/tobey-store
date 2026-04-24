@@ -20,18 +20,18 @@ const socialLink = [
   },
   {
     title: "Twitter",
-    href: "https://www.youtube.com/michael",
+    href: "https://x.com/needaforth?s=21",
     icon: <Twitter className='w-5 h-5' />,
   },
 
   {
     title: "Instagram",
-    href: "https://www.youtube.com/michael",
+    href: "https://www.instagram.com/tobey_studios?igsh=Z2pwc3g0Y2R0a2ho&utm_source=qr",
     icon: <Instagram className='w-5 h-5' />,
   },
   {
     title: "Youtube",
-    href: "https://www.youtube.com/michael",
+    href: "https://www.youtube.com/@OriginalTobeyStudios-r7x",
     icon: <Youtube className='w-5 h-5' />,
   },
   
