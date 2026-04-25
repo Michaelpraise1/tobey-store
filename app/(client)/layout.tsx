@@ -3,6 +3,7 @@ import "../globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ClerkProvider} from '@clerk/nextjs'
+import { Toaster } from "react-hot-toast";
 
 
 
@@ -26,6 +27,7 @@ export default function RootLayout({
           <main className="flex-1" >{children}</main>
           <Footer/>
         </div>
+        <Toaster position="bottom-right" />
     </ClerkProvider>
   );
 }
