@@ -16,6 +16,13 @@ interface CartState {
   clearCart: () => void;
   getTotalPrice: () => number;
   getItemCount: () => number;
+
+  // ── Favourites ──────────────────────────
+  favorites: Product[];
+  toggleFavorite: (product: Product) => void;
+  removeFavorite: (productId: string) => void;
+  isFavorite: (productId: string) => boolean;
+  getFavoriteCount: () => number;
 }
 
 export const useCartStore = create<CartState>()(
@@ -30,12 +37,10 @@ export const useCartStore = create<CartState>()(
           );
           
           if (existingItemIndex !== -1) {
-            // Item exists, just increment quantity
             const updatedItems = [...state.items];
             updatedItems[existingItemIndex].quantity += 1;
             return { items: updatedItems };
           } else {
-            // Item doesn't exist, add it
             return { items: [...state.items, { product, quantity: 1 }] };
           }
         });
@@ -80,10 +85,38 @@ export const useCartStore = create<CartState>()(
 
       getItemCount: () => {
         return get().items.reduce((count, item) => count + item.quantity, 0);
-      }
+      },
+
+      // ── Favourites ──────────────────────────
+      favorites: [],
+
+      toggleFavorite: (product) => {
+        set((state) => {
+          const exists = state.favorites.some((p) => p._id === product._id);
+          return {
+            favorites: exists
+              ? state.favorites.filter((p) => p._id !== product._id)
+              : [...state.favorites, product],
+          };
+        });
+      },
+
+      removeFavorite: (productId) => {
+        set((state) => ({
+          favorites: state.favorites.filter((p) => p._id !== productId),
+        }));
+      },
+
+      isFavorite: (productId) => {
+        return get().favorites.some((p) => p._id === productId);
+      },
+
+      getFavoriteCount: () => {
+        return get().favorites.length;
+      },
     }),
     {
-      name: 'cart-storage', // name of item in localStorage
+      name: 'cart-storage',
     }
   )
 );

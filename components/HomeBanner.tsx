@@ -4,6 +4,7 @@ import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from './ui/
 import { Flame } from 'lucide-react'
 import { Button } from './ui/button'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import jacketImg from '../images/products/jacket.png'
 import hoodieImg from '../images/products/redThickHoodie.jpeg'
@@ -48,12 +49,14 @@ const HomeBanner = () => {
         </p>
 
         <div className="flex flex-wrap items-center gap-4 mt-4">
-          <Button className="bg-shop_light_red hover:bg-shop-dark-red text-white px-8 py-6 rounded-lg font-bold uppercase tracking-wider text-sm flex items-center gap-2 transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(220,38,38,0.4)] hover:shadow-[0_0_30px_rgba(220,38,38,0.6)] border-none">
-            <Flame className="w-5 h-5" /> Shop Now
-          </Button>
-          <Button variant="outline" className="border-shop_light_red/50 text-shop_light_red hover:bg-shop_light_red hover:text-white px-8 py-6 rounded-lg font-bold uppercase tracking-wider text-sm transition-all duration-300 bg-transparent">
+          <Link href="/shop">
+            <Button className="bg-shop_light_red hover:bg-shop-dark-red text-white px-8 py-6 rounded-lg font-bold uppercase tracking-wider text-sm flex items-center gap-2 transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(220,38,38,0.4)] hover:shadow-[0_0_30px_rgba(220,38,38,0.6)] border-none">
+              <Flame className="w-5 h-5" /> Shop Now
+            </Button>
+          </Link>
+          {/* <Button variant="outline" className="border-shop_light_red/50 text-shop_light_red hover:bg-shop_light_red hover:text-white px-8 py-6 rounded-lg font-bold uppercase tracking-wider text-sm transition-all duration-300 bg-transparent">
             Ai Shape Fit Product
-          </Button>
+          </Button> */}
         </div>
       </div>
 
