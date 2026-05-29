@@ -54,7 +54,7 @@ const SocialMedia = ({ className, iconClassName, tooltipClassName }: Props) => {
                 {item?.icon}
               </Link >
             </TooltipTrigger>
-            <TooltipContent className={cn("bg-white text-daarkColor font-semibold border border-[shop_light_red]  p-2", tooltipClassName)}>
+            <TooltipContent className={cn("bg-white text-dark-color font-semibold border border-shop_light_red  p-2", tooltipClassName)}>
               {item?.title}
             </TooltipContent>
           </Tooltip>

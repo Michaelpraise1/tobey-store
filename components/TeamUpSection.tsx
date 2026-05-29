@@ -82,36 +82,36 @@ const TeamUpSection = () => {
               />
             </div>
 
-            <button className="w-full max-w-xl bg-shop_light_red hover:bg-shop-dark-red text-white font-black uppercase tracking-widest py-3 px-8 rounded-lg text-sm transition-all duration-300 hover:shadow-[0_0_30px_rgba(220,38,38,0.5)] hover:scale-105 font-gaming">
+            <button className="w-full max-w-xl bg-shop_light_red hover:bg-shop-dark-red text-white font-black uppercase tracking-wider sm:tracking-widest py-3.5 px-4 sm:px-8 rounded-lg text-xs sm:text-sm transition-all duration-300 hover:shadow-[0_0_30px_rgba(220,38,38,0.5)] hover:scale-105 font-gaming whitespace-normal break-words">
               Initiate System Link Scan Body to Hell
             </button>
           </div>
 
           {/* Fine print */}
-          <p className="text-center text-zinc-500 text-xs mt-5">
+          <p className="text-center text-zinc-500 text-xs mt-5 px-4">
             with a system sign up from{" "}
             <span className="text-shop_light_red">Daniel Larussa Fong</span>,
             Mortal Kombat Mr. Scorpion,{" "}
             <span className="text-shop_light_red">Terry Silver Fong</span> and
             Mortal Kombat Mr. Sub Zero
           </p>
-          <p className="text-center text-shop_light_red/70 text-xs italic mt-2">
+          <p className="text-center text-shop_light_red/70 text-xs italic mt-2 px-4">
             This system and buttons only works for certain fighters in dimension worlds only
           </p>
-          <p className="text-center text-shop_light_red/50 text-xs italic mt-1">
+          <p className="text-center text-shop_light_red/50 text-xs italic mt-1 px-4">
             sign up only works for certain fighters out there in dimension worlds only And the
             buttons sends you to Mortal Fang Kombat Hell or the Dark side of Hell depending on
             which person you are
           </p>
 
           {/* Fighter grid */}
-          <div className="grid grid-cols-3 gap-3 mt-10">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-10">
             {fighters.map((fighter) => (
               <button
                 key={fighter.id}
                 onClick={() => setActiveFighter(fighter.id)}
                 className={`
-                  flex flex-col items-center justify-center gap-2 p-4 rounded-xl border
+                  flex flex-col items-center justify-center gap-2 p-3 sm:p-4 rounded-xl border
                   transition-all duration-300 hover:scale-105 text-center
                   ${activeFighter === fighter.id
                     ? "border-yellow-500/70 bg-zinc-800 shadow-[0_0_20px_rgba(234,179,8,0.2)]"

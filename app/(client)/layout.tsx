@@ -9,8 +9,8 @@ import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
  title: {
-  template: "%s - Original Tobey Studio Store",
-  default: "Original Tobey Studio",
+  template: "%s - Original Tobey Studios Store",
+  default: "Original Tobey Studios",
  },
  description: "Unleash your fighting spirit with exclusive Mortal Fang Kombat gear. Premium merchandise for true warriors."
 };
