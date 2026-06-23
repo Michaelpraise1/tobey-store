@@ -34,8 +34,8 @@ const HomeBanner = () => {
   return (
     <div className="relative w-full overflow-hidden bg-zinc-950 rounded-2xl p-8 md:p-12 border border-zinc-800 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-10">
       {/* Background ambient glows */}
-      <div className="absolute -top-20 -left-20 w-64 h-64 bg-shop-dark-red/40 blur-[100px] rounded-full pointer-events-none" />
-      <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-shop_light_red/20 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute -top-20 -left-20 w-64 h-64 bg-shop-dark-red/40 blur-3xl rounded-full pointer-events-none" />
+      <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-shop_light_red/20 blur-3xl rounded-full pointer-events-none" />
 
       {/* Left Content - Typography & Buttons */}
       <div className="w-full md:w-1/2 flex flex-col items-start gap-6 z-10">
@@ -54,9 +54,9 @@ const HomeBanner = () => {
               <Flame className="w-5 h-5" /> Shop Now
             </Button>
           </Link>
-           <Button variant="outline" className="border-shop_light_red/50 text-shop_light_red hover:bg-shop_light_red hover:text-white px-8 py-6 rounded-lg font-bold uppercase tracking-wider text-sm transition-all duration-300 bg-transparent">
+          <Button variant="outline" className="border-shop_light_red/50 text-shop_light_red hover:bg-shop_light_red hover:text-white px-8 py-6 rounded-lg font-bold uppercase tracking-wider text-sm transition-all duration-300 bg-transparent">
             Ai Shape Fit Product
-          </Button> 
+          </Button>
         </div>
       </div>
 

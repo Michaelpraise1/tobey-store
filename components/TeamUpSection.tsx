@@ -49,10 +49,10 @@ const TeamUpSection = () => {
   const [activeFighter, setActiveFighter] = useState("scorpion");
 
   return (
-    <section className="w-full bg-zinc-950 rounded-2xl py-10 ">
+    <section className="relative w-full overflow-hidden bg-zinc-950 rounded-2xl py-10">
       {/* Background ambient glows */}
-      <div className="absolute -top-20 -left-20 w-64 h-64 bg-shop-dark-red/40 blur-[100px] rounded-full pointer-events-none" />
-      <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-shop_light_red/20 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute -top-20 -left-20 w-64 h-64 bg-shop-dark-red/40 blur-3xl rounded-full pointer-events-none" />
+      <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-shop_light_red/20 blur-3xl rounded-full pointer-events-none" />
       <Container>
         <div className="max-w-4xl mx-auto">
           {/* Heading */}
