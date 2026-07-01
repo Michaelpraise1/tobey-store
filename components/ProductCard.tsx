@@ -1,13 +1,71 @@
+"use client";
+
 import { Product } from '@/sanity.types';
 import { urlFor } from '@/sanity/lib/image';
 import Image from 'next/image';
 import React from 'react'
 import AddToWishlistButton from './AddToWishlistButton';
 import Link from 'next/link';
-import { Flame } from 'lucide-react';
+import { Flame, Cpu } from 'lucide-react';
 import AddToCartButton from './AddToCartButton';
+import { useCartStore } from '@/store/store';
+import { useUser, useClerk } from '@clerk/nextjs';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 const ProductCard = ({ product }: { product: Product }) => {
+  const addItem = useCartStore((state) => state.addItem);
+  const { isSignedIn } = useUser();
+  const { openSignIn } = useClerk();
+  const router = useRouter();
+
+  const hasSizes = product.sizes && product.sizes.length > 0;
+
+  const handleAiAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!isSignedIn) {
+      toast.error("Please sign in to add items to your cart", {
+        icon: "🔐",
+        style: {
+          borderRadius: "8px",
+          background: "#151515",
+          color: "#fff",
+          border: "1px solid #7f1d1d",
+        },
+      });
+      openSignIn();
+      return;
+    }
+
+    const savedAiSize = typeof window !== "undefined" ? localStorage.getItem("mortal-fang-ai-size") : null;
+
+    if (!savedAiSize) {
+      toast.error("No AI Sizing profile found! Redirecting to setup fit profile...", {
+        icon: "🤖",
+        style: {
+          borderRadius: "8px",
+          background: "#151515",
+          color: "#fff",
+          border: "1px solid #7f1d1d",
+        },
+      });
+      router.push(`/product/${product?.slug?.current || ""}`);
+      return;
+    }
+
+    addItem(product);
+    toast.success(`${product?.title?.substring(0, 12)}... (AI Fit: ${savedAiSize}) added to cart!`, {
+      icon: "🤖",
+      style: {
+        borderRadius: "8px",
+        background: "#151515",
+        color: "#fff",
+        border: "1px solid #047857",
+      },
+    });
+  };
   return (
     <div className="flex flex-col h-full">
       <div className="aspect-square w-full bg-gray-100 rounded-md flex items-center justify-center mb-4 overflow-hidden relative group">
@@ -75,6 +133,15 @@ const ProductCard = ({ product }: { product: Product }) => {
           )}
         </div>
         <AddToCartButton product={product} />
+        {hasSizes && (
+          <button
+            onClick={handleAiAddToCart}
+            className="flex items-center justify-center gap-1.5 bg-gradient-to-r from-red-600 to-amber-500 hover:from-red-700 hover:to-amber-600 text-white py-2 px-4 rounded-md transition-all duration-300 w-full font-black uppercase tracking-wider text-[10px] mt-2 shadow-sm cursor-pointer"
+          >
+            <Cpu size={12} className="animate-pulse" />
+            <span>AI Shape Fit</span>
+          </button>
+        )}
       </div>
     </div>
   )

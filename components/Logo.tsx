@@ -29,7 +29,7 @@ const Logo = ({ className, spanDesign }: { className?: string, spanDesign?: stri
         )}
       >
         Original Tobey
-        <span className={cn("text-shop_light_red group-hover:text-shop-dark-red hoverEffect", spanDesign)}> Studio </span>
+        <span className={cn("text-shop_light_red group-hover:text-shop-dark-red hoverEffect", spanDesign)}> Studios </span>
       </h2>
       <h5 className={cn(
         "hidden xs:block text-[9px] sm:text-[10px] md:text-xs text-shop-dark-red tracking-wider uppercase hover:text-shop_light_red hoverEffect group font-sans font-semibold mt-0.5",

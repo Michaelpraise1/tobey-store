@@ -63,7 +63,7 @@ const Footer = () => {
           <p className='text-sm'>
             © {new Date().getFullYear()}{" "}
             <span className=' text-shop-dark-red font-black tracking-wider uppercase hover:text-shop_light_red hoverEffect group font-sans text-sm'> Original Tobey
-              {" "} <span className='text-shop_light_red group-hover:text-shop-dark-red hoverEffect text-sm'>studio</span>
+              {" "} <span className='text-shop_light_red group-hover:text-shop-dark-red hoverEffect text-sm'>studios</span>
             </span>
             . All rights reserved. Built for warriors, by warriors.
           </p>

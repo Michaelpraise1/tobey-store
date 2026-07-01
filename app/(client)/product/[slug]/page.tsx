@@ -2,20 +2,56 @@ import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import { Product } from "@/sanity.types";
 import Image from "next/image";
-import { notFound } from "next/navigation";
-import AddToCartButton from "@/components/AddToCartButton";
-import ProductOptionSelect from "./ProductOptionSelect"; // We will create this as a client component
-import AddToWishlistButton from "@/components/AddToWishlistButton";
+import ProductOptionSelect from "./ProductOptionSelect";
 import { Flame } from "lucide-react";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://tobey-studios.vercel.app";
+
 async function getProduct(slug: string): Promise<Product | null> {
   const query = `*[_type == "product" && slug.current == $slug][0]`;
   const product = await client.fetch(query, { slug });
   return product;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const resolvedParams = await params;
+  const product = await getProduct(resolvedParams.slug);
+
+  if (!product) {
+    return {
+      title: "Product Not Found",
+    };
+  }
+
+  const title = product.title || "Product";
+  const description = `Buy ${title} online. Discover premium Mortal Fang Kombat gear at Original Tobey Studios Store.`;
+  const mainImage = product.images && product.images.length > 0 ? urlFor(product.images[0]).url() : null;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `${baseUrl}/product/${resolvedParams.slug}`,
+    },
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      images: mainImage ? [{ url: mainImage, alt: title }] : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: mainImage ? [mainImage] : [],
+    },
+  };
 }
 
 export default async function ProductPage({ params }: Props) {
@@ -29,8 +65,34 @@ export default async function ProductPage({ params }: Props) {
   // The main image is typically the first one
   const mainImage = product.images && product.images.length > 0 ? product.images[0] : null;
 
+  const descriptionText = product.description
+    ? `Premium quality ${product.title || "gear"} from Original Tobey Studios.`
+    : "This is a great product with premium quality materials designed and finished with care.";
+
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": product.title,
+    "image": mainImage ? urlFor(mainImage).url() : undefined,
+    "description": descriptionText,
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": product.price,
+      "itemCondition": "https://schema.org/NewCondition",
+      "availability": product.stock && product.stock > 0 
+        ? "https://schema.org/InStock" 
+        : "https://schema.org/OutOfStock",
+      "url": `${baseUrl}/product/${resolvedParams.slug}`,
+    },
+  };
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-10 md:py-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
       <div className="flex flex-col md:flex-row gap-10">
         {/* Left column: Images */}
         <div className="w-full md:w-1/2 flex flex-col gap-4">
@@ -107,18 +169,8 @@ export default async function ProductPage({ params }: Props) {
 
           <div className="h-px w-full bg-gray-200 my-4"></div>
 
-          {/* Options (Sizes / Tastes) */}
+          {/* Options & Cart Actions (includes Sizing, AI Fit, and Buttons) */}
           <ProductOptionSelect product={product} />
-
-          {/* Add to Cart & Wishlist */}
-          <div className="mt-8 flex gap-4">
-             <div className="flex-1">
-               <AddToCartButton product={product} />
-             </div>
-             <div className="flex items-center justify-center p-3 border border-gray-300 rounded-md hover:bg-gray-50 cursor-pointer">
-                <AddToWishlistButton product={product} />
-             </div>
-          </div>
 
           <div className="h-px w-full bg-gray-200 my-8"></div>
 
