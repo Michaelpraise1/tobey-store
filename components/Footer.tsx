@@ -15,7 +15,7 @@ const Footer = () => {
     <footer className='bg-white border-t'>
       <Container>
         {/* <FooterTop/> */}
-        <div className='py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8'>
+        <div className='py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8'>
           <div className='space-y-4'>
             <div className='flex items-center gap-3 '>
               <LogoIcon />
@@ -27,7 +27,7 @@ const Footer = () => {
               tooltipClassName='bg-red-500 text-white'
             />
           </div>
-          <div>
+          {/* <div>
             <SubTitle>
               ARSENAL
             </SubTitle>
@@ -40,9 +40,9 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-          </div>
-          <div>
-            <SubTitle>
+          </div> */}
+          {/* <div> */}
+          {/* <SubTitle>
               SUPPORT
             </SubTitle>
             <ul className='space-y-3 mt-4'>
@@ -54,7 +54,7 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
           <div className='space-y-4'>
             <Newsletter />
           </div>

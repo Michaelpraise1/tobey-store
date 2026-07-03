@@ -54,9 +54,9 @@ const HomeBanner = () => {
               <Flame className="w-5 h-5" /> Shop Now
             </Button>
           </Link>
-          <Button variant="outline" className="border-shop_light_red/50 text-shop_light_red hover:bg-shop_light_red hover:text-white px-8 py-6 rounded-lg font-bold uppercase tracking-wider text-sm transition-all duration-300 bg-transparent">
+          {/* <Button variant="outline" className="border-shop_light_red/50 text-shop_light_red hover:bg-shop_light_red hover:text-white px-8 py-6 rounded-lg font-bold uppercase tracking-wider text-sm transition-all duration-300 bg-transparent">
             Ai Shape Fit Product
-          </Button>
+          </Button> */}
         </div>
       </div>
 
