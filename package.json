@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^7.0.5",
+    "@paypal/react-paypal-js": "^10.2.1",
     "@react-email/components": "^1.0.12",
     "@sanity/icons": "^3.7.4",
     "@sanity/image-url": "^1.2.0",

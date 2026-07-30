@@ -8,6 +8,7 @@ import { ShoppingBag, Check, ChevronLeft, ChevronRight, Truck, Zap } from "lucid
 import { cn } from "@/lib/utils";
 import { useUser, useClerk } from "@clerk/nextjs";
 import toast from "react-hot-toast";
+import { useCartStore } from "@/store/store";
 
 const SIZE_LABELS: Record<string, string> = {
   xs: "XS", s: "S", m: "M", l: "L", xl: "XL", "2xl": "2XL", "3xl": "3XL", one_size: "One Size",
@@ -56,7 +57,9 @@ const MerchConfigurator = ({ product }: Props) => {
     );
   };
 
-  const handleAddToCart = async () => {
+  const { addMerchItem } = useCartStore();
+
+  const handleAddToCart = () => {
     if (!isSignedIn) {
       toast.error("Please sign in to add items to your cart", {
         icon: "🔐",
@@ -73,10 +76,31 @@ const MerchConfigurator = ({ product }: Props) => {
       return;
     }
 
+    // Resolve the Printify variant ID from the active design's variant list.
+    // The design's printifyVariantIds are indexed by color order (if color options exist),
+    // or we just take the first available variant ID.
+    let printifyVariantId: number | undefined;
+    if (activeDesign?.printifyVariantIds && activeDesign.printifyVariantIds.length > 0) {
+      if (hasColors && selectedColor) {
+        // Try to find the color's index to pick the matching variant
+        const colorIndex = colors.findIndex((c) => c._key === selectedColor._key);
+        printifyVariantId =
+          activeDesign.printifyVariantIds[colorIndex] ??
+          activeDesign.printifyVariantIds[0];
+      } else {
+        printifyVariantId = activeDesign.printifyVariantIds[0];
+      }
+    }
+
     setAdding(true);
-    // TODO: Wire to merch cart store / Stripe checkout flow (Phase 1)
-    // For now, shows success to confirm the UI flow works end-to-end
-    await new Promise((r) => setTimeout(r, 800));
+
+    addMerchItem(product, {
+      selectedSize: selectedSize ?? undefined,
+      selectedColor: selectedColor?.label ?? undefined,
+      selectedDesign: activeDesign?.name ?? undefined,
+      printifyVariantId,
+    });
+
     toast.success(
       `${product.title}${selectedSize ? ` (${SIZE_LABELS[selectedSize] ?? selectedSize})` : ""} added!`,
       {
@@ -84,6 +108,7 @@ const MerchConfigurator = ({ product }: Props) => {
         style: { borderRadius: "8px", background: "#151515", color: "#fff", border: "1px solid #047857" },
       }
     );
+
     setAdding(false);
   };
 
@@ -311,11 +336,7 @@ const MerchConfigurator = ({ product }: Props) => {
           </button>
 
           <p className="text-center text-xs text-gray-400 font-body">
-            This item is made-to-order and fulfilled by{" "}
-            <span className="font-semibold capitalize">
-              {product.fulfillmentProvider ?? "Printify"}
-            </span>
-            .
+            This item is made-to-order and shipped directly to your door.
           </p>
         </div>
 

@@ -27,16 +27,26 @@ export const orderType = defineType({
     }),
     defineField({
       name: 'stripeCheckoutSessionId',
-      title: 'Stripe Checkkout Session ID',
+      title: 'Stripe Checkout Session ID',
       type: 'string',
+    }),
+    defineField({
+      name: 'paypalOrderId',
+      title: 'PayPal Order ID',
+      type: 'string',
+    }),
+    defineField({
+      name: 'paymentMethod',
+      title: 'Payment Method',
+      type: 'string',
+      initialValue: 'card',
     }),
     defineField({
       name: "stripeCustomerId",
       title: "Stripe Customer ID",
       type: "string",
-      validation: (Rule) => Rule.required(),
     }),
-     defineField({
+    defineField({
       name: "clerkUserId",
       title: "Store User ID",
       type: "string",
@@ -115,6 +125,46 @@ export const orderType = defineType({
           },
         }),
       ],
+    }),
+
+    // ─── Printify Fulfillment (internal — not shown to customer) ─────────────
+    defineField({
+      name: 'printifyOrderId',
+      title: 'Printify Order ID',
+      type: 'string',
+      readOnly: true,
+      description: '(Auto-populated) Returned by Printify after the order is submitted for fulfillment.',
+    }),
+    defineField({
+      name: 'fulfillmentStatus',
+      title: 'Fulfillment Status',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Pending Fulfillment', value: 'pending_fulfillment' },
+          { title: 'Sent to Printify', value: 'sent_to_printify' },
+          { title: 'In Production', value: 'in_production' },
+          { title: 'Shipped', value: 'shipped' },
+          { title: 'Delivered', value: 'delivered' },
+          { title: 'Fulfillment Failed', value: 'failed' },
+        ],
+        layout: 'dropdown',
+      },
+      description: 'Updated automatically by Printify webhooks.',
+    }),
+    defineField({
+      name: 'trackingNumber',
+      title: 'Tracking Number',
+      type: 'string',
+      readOnly: true,
+      description: 'Populated via Printify webhook once the order has shipped.',
+    }),
+    defineField({
+      name: 'trackingUrl',
+      title: 'Tracking URL',
+      type: 'url',
+      readOnly: true,
+      description: 'Direct link to carrier tracking page.',
     }),
   ],
   preview: {

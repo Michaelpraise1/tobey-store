@@ -134,6 +134,35 @@ export const productType = defineType({
       type: 'boolean',
       initialValue: false,
     }),
+
+    // ─── Printify / Fulfillment (internal — not shown in storefront) ──────────
+    defineField({
+      name: 'printifyProductId',
+      title: 'Printify Product ID',
+      type: 'string',
+      readOnly: true,
+      description: '(Auto-populated) The live product ID in your Printify shop. Do not edit manually.',
+      group: undefined,
+      hidden: ({ currentUser }) => !currentUser?.roles?.some((r: { name: string }) => r.name === 'administrator'),
+    }),
+    defineField({
+      name: 'printifyVariantMap',
+      title: 'Printify Variant Map',
+      type: 'array',
+      readOnly: true,
+      description: '(Auto-populated) Maps size + color choices to Printify variant IDs.',
+      hidden: ({ currentUser }) => !currentUser?.roles?.some((r: { name: string }) => r.name === 'administrator'),
+      of: [
+        defineArrayMember({
+          type: 'object',
+          fields: [
+            defineField({ name: 'size', title: 'Size', type: 'string' }),
+            defineField({ name: 'color', title: 'Color', type: 'string' }),
+            defineField({ name: 'printifyVariantId', title: 'Printify Variant ID', type: 'number' }),
+          ],
+        }),
+      ],
+    }),
   ],
   preview: {
     select: {
