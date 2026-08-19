@@ -95,11 +95,12 @@ function resolvePrintifyVariantId(item: CartItemPayload): number | undefined {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { items, customer, userId, paymentMethod, paypalOrderId } = body as {
+    const { items, customer, userId, paymentMethod, paypalOrderId, stripePaymentIntentId } = body as {
       items: CartItemPayload[];
       customer: CustomerPayload;
       paymentMethod?: string;
       paypalOrderId?: string;
+      stripePaymentIntentId?: string;
       userId?: string;
     };
 
@@ -139,6 +140,7 @@ export async function POST(request: Request) {
           clerkUserId: userId || 'guest',
           paymentMethod: paymentMethod || 'card',
           paypalOrderId: paypalOrderId || undefined,
+          stripePaymentIntentId: stripePaymentIntentId || undefined,
           amount: totalAmount,
           currency: 'USD',
           status: 'processing',
