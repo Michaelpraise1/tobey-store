@@ -20,7 +20,7 @@ const ProductGrid = () => {
       setLoading(true);
       try {
         const query = `*[_type == "product" && variants == $variant]`;
-        const params = { variant: selectTab.toLowerCase() };
+        const params: Record<string, string> = { variant: selectTab.toLowerCase() };
         const response = await client.fetch(query, params);
         setProducts(response);
       } catch (error) {
